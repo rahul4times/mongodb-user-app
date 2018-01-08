@@ -54,4 +54,14 @@ describe('Updating user', () => {
     );
   });
 
+  it('A user can have their postCount increment by 1', (done) => {
+    // updating record here by using $inc operator by mongodb
+    User.update({ name: 'Joe' }, { $inc: { postCount: 1 } })
+      .then(() => User.findOne({name: 'Joe'}))
+      .then((user) => {
+        assert(user.postCount === 1);
+        done();
+      })
+  })
+
 });
